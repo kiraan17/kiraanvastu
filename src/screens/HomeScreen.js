@@ -101,10 +101,10 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.premiumCard}>
         <Text style={styles.premiumHeader}>🌟 Unlock Premium Features</Text>
         <Text style={styles.premiumText}>
-          • Unlimited floor plans{'\n'}
-          • Detailed PDF reports{'\n'}
-          • Expert consultations{'\n'}
-          • Custom remedies
+          • Unlimited floor plans
+          {'\n'}• Detailed PDF reports
+          {'\n'}• Expert consultations
+          {'\n'}• Custom remedies
         </Text>
         <TouchableOpacity style={styles.premiumButton}>
           <Text style={styles.premiumButtonText}>Upgrade Now</Text>

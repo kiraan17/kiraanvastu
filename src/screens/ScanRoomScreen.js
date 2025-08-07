@@ -268,9 +268,7 @@ export default function ScanRoomScreen() {
 
           <View style={styles.instructions}>
             <Text style={styles.instructionsText}>
-              1. Point camera at the room{'\n'}
-              2. Hold device steady{'\n'}
-              3. Tap scan when ready
+              1. Point camera at the room{'\n'}2. Hold device steady{'\n'}3. Tap scan when ready
             </Text>
           </View>
         </View>

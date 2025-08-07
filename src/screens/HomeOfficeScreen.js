@@ -125,11 +125,11 @@ export default function HomeOfficeScreen() {
             <View style={styles.guidanceCard}>
               <Text style={styles.guidanceSubtitle}>Ideal Setup:</Text>
               <Text style={styles.guidanceText}>
-                • Place your desk in the {selectedProfession.idealZones[0]} zone{'\n'}
-                • Face {selectedProfession.facingDirection} while working{'\n'}
-                • Keep your back to a solid wall for support{'\n'}
-                • Ensure good lighting from the left side{'\n'}
-                • Keep the workspace clutter-free and organized
+                • Place your desk in the {selectedProfession.idealZones[0]} zone
+                {'\n'}• Face {selectedProfession.facingDirection} while working
+                {'\n'}• Keep your back to a solid wall for support
+                {'\n'}• Ensure good lighting from the left side
+                {'\n'}• Keep the workspace clutter-free and organized
               </Text>
             </View>
           </View>
@@ -138,11 +138,11 @@ export default function HomeOfficeScreen() {
             <Text style={styles.sectionTitle}>🌿 Additional Tips</Text>
             <View style={styles.guidanceCard}>
               <Text style={styles.guidanceText}>
-                • Place a small plant in the North-East corner{'\n'}
-                • Use a comfortable chair with good back support{'\n'}
-                • Keep a glass of water on your desk{'\n'}
-                • Avoid sitting directly under a beam{'\n'}
-                • Ensure proper ventilation in your workspace
+                • Place a small plant in the North-East corner
+                {'\n'}• Use a comfortable chair with good back support
+                {'\n'}• Keep a glass of water on your desk
+                {'\n'}• Avoid sitting directly under a beam
+                {'\n'}• Ensure proper ventilation in your workspace
               </Text>
             </View>
           </View>

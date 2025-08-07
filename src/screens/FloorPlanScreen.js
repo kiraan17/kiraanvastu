@@ -64,10 +64,10 @@ export default function FloorPlanScreen() {
             Upgrade to unlock:
           </Text>
           <Text style={styles.premiumFeatures}>
-            • Unlimited floor plans{'\n'}
-            • Detailed PDF reports{'\n'}
-            • Professional analysis{'\n'}
-            • Custom recommendations
+            • Unlimited floor plans
+            {'\n'}• Detailed PDF reports
+            {'\n'}• Professional analysis
+            {'\n'}• Custom recommendations
           </Text>
           <View style={styles.premiumButtons}>
             <TouchableOpacity
@@ -199,10 +199,10 @@ export default function FloorPlanScreen() {
       <View style={styles.freeFeatures}>
         <Text style={styles.freeTitle}>Free Plan Limitations</Text>
         <Text style={styles.freeText}>
-          • 1 floor plan upload{'\n'}
-          • Basic zone identification{'\n'}
-          • Simple recommendations{'\n'}
-          • No PDF export
+          • 1 floor plan upload
+          {'\n'}• Basic zone identification
+          {'\n'}• Simple recommendations
+          {'\n'}• No PDF export
         </Text>
         <Text style={styles.upgradePrompt}>
           Upgrade to Premium for unlimited floor plans and detailed reports!
