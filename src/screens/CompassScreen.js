@@ -82,7 +82,8 @@ export default function CompassScreen() {
                 <View style={styles.modalSection}>
                   <Text style={styles.modalSectionTitle}>Element & Planet</Text>
                   <Text style={styles.modalText}>
-                    Element: {selectedZone.element}{'\n'}Ruling Planet: {selectedZone.rulingPlanet}
+                    Element: {selectedZone.element}
+                    {'\n'}Ruling Planet: {selectedZone.rulingPlanet}
                   </Text>
                   {selectedZone.deity && (
                     <Text style={styles.modalText}>
@@ -220,7 +221,11 @@ export default function CompassScreen() {
       <View style={styles.instructions}>
         <Text style={styles.instructionsTitle}>How to Use</Text>
         <Text style={styles.instructionsText}>
-          1. Hold your device flat and point it in different directions{'\n'}2. The red needle shows North direction{'\n'}3. Colored zones represent different Vastu areas{'\n'}4. Tap any zone to see detailed information{'\n'}5. Use the lock button to freeze the current direction
+          1. Hold your device flat and point it in different directions
+          {'\n'}2. The red needle shows North direction
+          {'\n'}3. Colored zones represent different Vastu areas
+          {'\n'}4. Tap any zone to see detailed information
+          {'\n'}5. Use the lock button to freeze the current direction
         </Text>
       </View>
 
