@@ -7,17 +7,31 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { VASTU_TIPS } from '../data/vastuZones';
-import { getBeneficialDirection, getDailyTip } from '../utils/vastuCalculations';
+import { VASTU_TIPS, VASTU_ZONES } from '../data/vastuZones';
+import { getBeneficialDirection } from '../utils/vastuCalculations';
 
 const { width } = Dimensions.get('window');
+
+const getEnhancedDailyTip = () => {
+  const today = new Date();
+  const zoneIndex = today.getDate() % VASTU_ZONES.length;
+  const zone = VASTU_ZONES[zoneIndex];
+  
+  if (zone.practical_examples && zone.practical_examples.length > 0) {
+    const exampleIndex = today.getHours() % zone.practical_examples.length;
+    return `${zone.name} Zone Tip: ${zone.practical_examples[exampleIndex]}`;
+  }
+  
+  const tipIndex = today.getDate() % VASTU_TIPS.length;
+  return VASTU_TIPS[tipIndex];
+};
 
 export default function HomeScreen({ navigation }) {
   const [dailyTip, setDailyTip] = useState('');
   const [beneficialDirection, setBeneficialDirection] = useState('');
 
   useEffect(() => {
-    setDailyTip(getDailyTip(VASTU_TIPS));
+    setDailyTip(getEnhancedDailyTip());
     setBeneficialDirection(getBeneficialDirection());
   }, []);
 

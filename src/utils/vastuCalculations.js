@@ -28,22 +28,31 @@ export const getZoneFromAngle = (angle) => {
 
 export const calculateCompliance = (roomType, currentZone) => {
   const room = ROOM_TYPES.find(r => r.id === roomType);
-  if (!room) return { score: 0, status: 'unknown' };
+  if (!room) return { score: 0, status: 'unknown', severity: 'high' };
   
   const isIdeal = room.idealZones.includes(currentZone.id);
   
   if (isIdeal) {
-    return { score: 100, status: 'excellent' };
+    return { score: 100, status: 'excellent', severity: 'low' };
   }
   
   const compatibleElements = getCompatibleElements(currentZone.element);
   const roomElement = getElementForRoom(roomType);
   
   if (compatibleElements.includes(roomElement)) {
-    return { score: 70, status: 'good' };
+    return { score: 70, status: 'good', severity: 'medium' };
   }
   
-  return { score: 30, status: 'needs_improvement' };
+  const isAvoidZone = currentZone.avoid && currentZone.avoid.some(avoid => 
+    avoid.toLowerCase().includes(roomType.toLowerCase()) || 
+    room.name.toLowerCase().includes(avoid.toLowerCase())
+  );
+  
+  if (isAvoidZone) {
+    return { score: 10, status: 'critical', severity: 'high' };
+  }
+  
+  return { score: 30, status: 'needs_improvement', severity: 'medium' };
 };
 
 export const getCompatibleElements = (element) => {
@@ -77,22 +86,57 @@ export const getElementForRoom = (roomType) => {
 
 export const getRemediesForZone = (zoneId, roomType) => {
   const zone = VASTU_ZONES.find(z => z.id === zoneId);
-  if (!zone) return [];
+  if (!zone) return { quick: [], moderate: [], structural: [] };
   
-  const baseRemedies = [...zone.remedies];
+  let remedies = { quick: [], moderate: [], structural: [] };
+  
+  if (zone.remedies) {
+    if (zone.remedies.quick) {
+      remedies.quick = [...zone.remedies.quick];
+    }
+    if (zone.remedies.moderate) {
+      remedies.moderate = [...zone.remedies.moderate];
+    }
+    if (zone.remedies.structural) {
+      remedies.structural = [...zone.remedies.structural];
+    }
+    
+    if (Array.isArray(zone.remedies)) {
+      remedies.quick = [...zone.remedies];
+    }
+  }
   
   const roomSpecificRemedies = {
-    'kitchen': ['Place stove in SE corner', 'Use red/orange colors'],
-    'bedroom': ['Place bed in SW corner', 'Use earth tones'],
-    'study': ['Face North while studying', 'Use blue/green colors'],
-    'prayer': ['Face East while praying', 'Use yellow/white colors']
+    'kitchen': {
+      quick: ['Place stove in SE corner', 'Use red/orange colors', 'Keep fire and water separate'],
+      moderate: ['Install proper ventilation', 'Use copper utensils'],
+      structural: ['Ensure kitchen faces SE direction']
+    },
+    'bedroom': {
+      quick: ['Place bed in SW corner', 'Use earth tones', 'Solid headboard'],
+      moderate: ['Remove mirrors facing bed', 'Use heavy furniture'],
+      structural: ['Ensure bedroom is in SW zone']
+    },
+    'study': {
+      quick: ['Face North while studying', 'Use blue/green colors', 'Good lighting'],
+      moderate: ['Organize books systematically', 'Add plants for freshness'],
+      structural: ['Create dedicated study space in NE']
+    },
+    'prayer': {
+      quick: ['Face East while praying', 'Use yellow/white colors', 'Keep area clean'],
+      moderate: ['Add spiritual symbols', 'Use natural materials'],
+      structural: ['Dedicate NE corner for prayer room']
+    }
   };
   
   if (roomSpecificRemedies[roomType]) {
-    baseRemedies.push(...roomSpecificRemedies[roomType]);
+    const roomRemedies = roomSpecificRemedies[roomType];
+    remedies.quick.push(...(roomRemedies.quick || []));
+    remedies.moderate.push(...(roomRemedies.moderate || []));
+    remedies.structural.push(...(roomRemedies.structural || []));
   }
   
-  return baseRemedies;
+  return remedies;
 };
 
 export const getBeneficialDirection = () => {

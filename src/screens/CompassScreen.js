@@ -78,41 +78,96 @@ export default function CompassScreen() {
                 {selectedZone.degrees.start}° - {selectedZone.degrees.end}°
               </Text>
               
-              <View style={styles.modalSection}>
-                <Text style={styles.modalSectionTitle}>Element & Planet</Text>
-                <Text style={styles.modalText}>
-                  Element: {selectedZone.element}
-                  {'\n'}Ruling Planet: {selectedZone.rulingPlanet}
-                </Text>
-              </View>
+              <ScrollView style={styles.modalScrollView}>
+                <View style={styles.modalSection}>
+                  <Text style={styles.modalSectionTitle}>Element & Planet</Text>
+                  <Text style={styles.modalText}>
+                    Element: {selectedZone.element}{'\n'}Ruling Planet: {selectedZone.rulingPlanet}
+                  </Text>
+                  {selectedZone.deity && (
+                    <Text style={styles.modalText}>
+                      Deity: {selectedZone.deity}
+                    </Text>
+                  )}
+                </View>
 
-              <View style={styles.modalSection}>
-                <Text style={styles.modalSectionTitle}>Ideal Usage</Text>
-                <Text style={styles.modalText}>
-                  {selectedZone.idealUsage.join(', ')}
-                </Text>
-              </View>
+                <View style={styles.modalSection}>
+                  <Text style={styles.modalSectionTitle}>Purpose</Text>
+                  <Text style={styles.modalText}>
+                    {selectedZone.purpose}
+                  </Text>
+                </View>
 
-              <View style={styles.modalSection}>
-                <Text style={styles.modalSectionTitle}>Do's</Text>
-                {selectedZone.dosDonts.dos.map((item, index) => (
-                  <Text key={index} style={styles.modalListItem}>• {item}</Text>
-                ))}
-              </View>
+                <View style={styles.modalSection}>
+                  <Text style={styles.modalSectionTitle}>Ideal Usage</Text>
+                  <Text style={styles.modalText}>
+                    {selectedZone.idealUsage.join(', ')}
+                  </Text>
+                </View>
 
-              <View style={styles.modalSection}>
-                <Text style={styles.modalSectionTitle}>Don'ts</Text>
-                {selectedZone.dosDonts.donts.map((item, index) => (
-                  <Text key={index} style={styles.modalListItem}>• {item}</Text>
-                ))}
-              </View>
+                <View style={styles.modalSection}>
+                  <Text style={styles.modalSectionTitle}>Do's</Text>
+                  {selectedZone.dosDonts.dos.map((item, index) => (
+                    <Text key={index} style={styles.modalListItem}>• {item}</Text>
+                  ))}
+                </View>
 
-              <View style={styles.modalSection}>
-                <Text style={styles.modalSectionTitle}>Remedies</Text>
-                {selectedZone.remedies.map((item, index) => (
-                  <Text key={index} style={styles.modalListItem}>• {item}</Text>
-                ))}
-              </View>
+                <View style={styles.modalSection}>
+                  <Text style={styles.modalSectionTitle}>Don'ts</Text>
+                  {selectedZone.dosDonts.donts.map((item, index) => (
+                    <Text key={index} style={styles.modalListItem}>• {item}</Text>
+                  ))}
+                </View>
+
+                {selectedZone.color_therapy && (
+                  <View style={styles.modalSection}>
+                    <Text style={styles.modalSectionTitle}>Color Therapy</Text>
+                    <Text style={styles.modalText}>
+                      {selectedZone.color_therapy.join(', ')}
+                    </Text>
+                  </View>
+                )}
+
+                {selectedZone.aroma_therapy && (
+                  <View style={styles.modalSection}>
+                    <Text style={styles.modalSectionTitle}>Aroma Therapy</Text>
+                    <Text style={styles.modalText}>
+                      {selectedZone.aroma_therapy.join(', ')}
+                    </Text>
+                  </View>
+                )}
+
+                <View style={styles.modalSection}>
+                  <Text style={styles.modalSectionTitle}>Quick Remedies</Text>
+                  {selectedZone.remedies && selectedZone.remedies.quick ? 
+                    selectedZone.remedies.quick.map((item, index) => (
+                      <Text key={index} style={styles.modalListItem}>• {item}</Text>
+                    )) :
+                    (Array.isArray(selectedZone.remedies) ? 
+                      selectedZone.remedies.map((item, index) => (
+                        <Text key={index} style={styles.modalListItem}>• {item}</Text>
+                      )) : null)
+                  }
+                </View>
+
+                {selectedZone.remedies && selectedZone.remedies.moderate && (
+                  <View style={styles.modalSection}>
+                    <Text style={styles.modalSectionTitle}>Moderate Remedies</Text>
+                    {selectedZone.remedies.moderate.map((item, index) => (
+                      <Text key={index} style={styles.modalListItem}>• {item}</Text>
+                    ))}
+                  </View>
+                )}
+
+                {selectedZone.practical_examples && (
+                  <View style={styles.modalSection}>
+                    <Text style={styles.modalSectionTitle}>Success Examples</Text>
+                    {selectedZone.practical_examples.map((item, index) => (
+                      <Text key={index} style={styles.modalListItem}>• {item}</Text>
+                    ))}
+                  </View>
+                )}
+              </ScrollView>
 
               <TouchableOpacity
                 style={styles.closeButton}
@@ -283,6 +338,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
     maxHeight: '80%',
+  },
+  modalScrollView: {
+    maxHeight: '70%',
   },
   modalTitle: {
     fontSize: 20,
